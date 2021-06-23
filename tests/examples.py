@@ -79,13 +79,13 @@ The Rosenbrock function: f(x) = 100(x_2 - x_1^2)^2 + (1-x_1)^2
 def rosenbrock(x, hess_flag=False):
     x_1 = x[0][0]
     x_2 = x[1][0]
-    f_x = np.power(100*(x_2 - np.power(x_1, 2)), 2) + np.power(1-x_1, 2)
+    f_x = (100*np.power((x_2 - np.power(x_1, 2)), 2)) + np.power(1-x_1, 2)
 
-    df_x = np.array([[400*np.power(x_1, 3) - 400*x_1*x_2 + 2*x_1 - 2],
-                     [-200*np.power(x_1, 2) + 200*x_2]])
+    df_x = np.array([[400*np.power(x_1, 3) - (400*x_1*x_2) + (2*x_1) - 2],
+                     [(-200)*np.power(x_1, 2) + (200*x_2)]])
 
     if hess_flag:
-        hess = np.array([[1200*np.power(x_1, 2) - 400*x_2 + 2, -400*x_1], [-400*x_1, 200]])
+        hess = np.array([[1200*np.power(x_1, 2) - (400*x_2) + 2, (-400)*x_1], [(-400)*x_1, 200]])
     else:
         hess = np.zeros((df_x.shape[0], df_x.shape[0]))
 

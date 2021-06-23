@@ -77,7 +77,7 @@ class TestGradientDescentMethods(unittest.TestCase):
         start_point = np.array([[2], [2]])
         max_iter = 50000
         param_tol = math.pow(10, -8)
-        obj_tol = math.pow(10, -7)
+        obj_tol = math.pow(10, -15)
         init_step_len = 1.0
         slope_ratio = 1e-4
         back_track_factor = 0.2
