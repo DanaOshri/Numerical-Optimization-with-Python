@@ -47,6 +47,24 @@ def plot_outlines(f, sol, start_point, history, label):
     fig.savefig('../tests/plots/'+label+'.png')
     plt.close(fig)
 
+def plot_objective_vals(history, label):
+    x = []
+    y = []
+
+    plt.rcParams["figure.figsize"] = (15, 13)
+    fig, ax = plt.subplots()
+
+    for k in range(len(history)):
+        x.append(history[k]['iter'])
+        y.append(float(history[k]['f_next']))
+
+    # Plot the data
+    plt.plot(x, y, label=label)
+    plt.xlabel('Number of iteration', fontsize=18)
+    plt.ylabel('Objective function value', fontsize=16)
+    fig.savefig('../tests/plots/' + label + '.png')
+    plt.close(fig)
+
 
 def plot_3d_outlines(f, sol, start_point, history, label):
     x = np.linspace(sol[0][0] - start_point[0][0], sol[0][0] + start_point[0][0], 20)

@@ -25,14 +25,15 @@ def interior_pt(f, ineq_constraints, eq_constraints_mat, eq_constraints_rhs, x0,
     h_list, dh_list, hess_list = ineq_constraints()
     M = len(h_list) # M - number of inequality constraints
 
+    count = 0
     x_prev = x0
     success_outer = False
     for i in range(max_iter_outer):
 
         # Newton's Method (Equality constraint version)
-        x_next, success, history = newton_method_equality_constraints(x_prev, f, ineq_constraints, t, N, A, epsilon,
-                                                                      init_step_len, slope_ratio, back_track_factor,
-                                                                      max_iter_inner)
+        x_next, success, history, count = newton_method_equality_constraints(x_prev, f, ineq_constraints, t, N, A,
+                                                                             epsilon, init_step_len, slope_ratio,
+                                                                             back_track_factor, count, max_iter_inner)
         if not success:
             break
 
@@ -57,7 +58,7 @@ def interior_pt(f, ineq_constraints, eq_constraints_mat, eq_constraints_rhs, x0,
 
 
 def newton_method_equality_constraints(x0, f, ineq_constraints, t, N, A, epsilon, init_step_len, slope_ratio,
-                                       back_track_factor, max_iter=100):
+                                       back_track_factor, count, max_iter=100):
 
     history = []
     success = False
@@ -88,18 +89,21 @@ def newton_method_equality_constraints(x0, f, ineq_constraints, t, N, A, epsilon
         log_barr_f_xk1, _, _ = f_log_barrier(xk1, f, ineq_constraints, t)
 
         # Print inner iteration data.
-        utils.iteration_reporting(k, xk1, log_barr_f_xk1,
+        f_xk, _, _ = f(xk)
+        f_xk1, _, _ = f(xk1)
+        utils.iteration_reporting(count, xk1, f_xk1,
                                   np.linalg.norm(xk - xk1),
-                                  np.linalg.norm(log_barr_f_xk1 - log_barr_f_xk))
+                                  np.linalg.norm(f_xk1 - f_xk))
         history.append({'x_prev': xk,
                         'x_next': xk1,
-                        'f_next': log_barr_f_xk1,
+                        'f_next': f_xk1,
                         'step_len': np.linalg.norm(xk1 - xk),
-                        'obj_change': np.linalg.norm(log_barr_f_xk1 - log_barr_f_xk)})
+                        'obj_change': np.linalg.norm(f_xk1 - f_xk)})
 
         xk = xk1
+        count += 1
 
-    return xk, success, history
+    return xk, success, history, count
 
 
 '''

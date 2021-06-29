@@ -32,6 +32,7 @@ class TestGradientDescentMethods(unittest.TestCase):
                                                                        back_track_factor)
 
             if success:
+                utils.plot_objective_vals(history, "Objective quadratic 1 - " + dir_selection_method)
                 utils.plot_outlines(examples.quadratic_1, sol, start_point, history,
                                     "Plot quadratic 1 - " + dir_selection_method)
 
@@ -48,6 +49,7 @@ class TestGradientDescentMethods(unittest.TestCase):
                                                                        back_track_factor)
 
             if success:
+                utils.plot_objective_vals(history, "Objective quadratic 2 - " + dir_selection_method)
                 utils.plot_outlines(examples.quadratic_2, sol, start_point, history,
                                     "Plot quadratic 2 - " + dir_selection_method)
 
@@ -64,6 +66,7 @@ class TestGradientDescentMethods(unittest.TestCase):
                                                                        back_track_factor)
 
             if success:
+                utils.plot_objective_vals(history, "Objective quadratic 3 - " + dir_selection_method)
                 utils.plot_outlines(examples.quadratic_3, sol, start_point, history,
                                     "Plot quadratic 3 - " + dir_selection_method)
 
@@ -95,6 +98,7 @@ class TestGradientDescentMethods(unittest.TestCase):
                                                                        back_track_factor)
 
             if success:
+                utils.plot_objective_vals(history, "Objective Rosenbrock - " + dir_selection_method)
                 utils.plot_outlines(examples.rosenbrock, sol, start_point, history,
                                     "Plot Rosenbrock - " + dir_selection_method)
 
@@ -122,6 +126,7 @@ class TestGradientDescentMethods(unittest.TestCase):
                                                                        back_track_factor)
 
             if len(history) > 0:
+                utils.plot_objective_vals(history, "Objective linear - " + dir_selection_method)
                 utils.plot_outlines(examples.linear, sol, start_point, history,
                                     "Plot linear - " + dir_selection_method)
 
